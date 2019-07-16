@@ -30,8 +30,11 @@
       <!-- .intro -->
       <section class="test-area">
         <div id="origin-text">
-          <p>Did I Stutter? - Stanley Hudson</p>
+           
+          <p >Did I Stutter?</p>
+          <button id="new">New Quote</button>
         </div>
+        
         <!-- #origin-text -->
 
         <div class="test-wrapper">
@@ -39,7 +42,9 @@
             id="test-area"
             name="textarea"
             rows="6"
-            placeholder="The clock starts when you start typing."
+            placeholder="The clock starts when you start typing." 
+            oncopy="return false" 
+            onpaste="return false"
           ></textarea>
         </div>
         <!-- .test-wrapper -->

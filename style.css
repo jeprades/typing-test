@@ -139,20 +139,34 @@ body {
     border: 10px solid grey;
     border-radius: 10px;
 }
-
 #origin-text {
-    margin: 1em 0;
-    padding: 1em 1em 0;
-    background-color: #ededed;
+    display: flex; 
+    flex-direction: column;
 }
-.ps-text {
-    padding-top:0.5em;
-}
-
 
 #origin-text p {
-    margin: 0.5em;
-    padding-bottom: 1em;
+    margin-top: 1em;
+    padding: 1.5em;
+    background-color: #ededed;
+    margin-bottom: 0;
+}
+#origin-text button {
+    margin-bottom: 2.5em;
+    padding: .2em 1em;
+    font-size: 1.2em;
+    font-weight: bold;
+    color: white;
+    background: #0D1B2E;
+    border: 3px solid #0D1B2E;
+}
+#origin-text button:hover {
+    color: #0D1B2E;
+    background-color: white;
+    border: 3px solid #0D1B2E;
+}
+#new {
+
+    padding: 0.5em;
 }
 
 .correct-typing {
