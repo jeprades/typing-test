@@ -5,11 +5,9 @@ let kOriginText = document.querySelector("#origin-text p");
 const kResetButton = document.querySelector("#reset");
 const kTheTimer = document.querySelector(".timer");
 const kNewQuoteButton = document.querySelector("#new");
-var timer = [0,0,0,0]; // timer is an interval that will be clear when the reset button is clicked.
-var interval;
-var timerRunning = false; // It won't start the interval again in the setTimer function when all text is deleted from the testarea
-
-
+let timer = [0, 0, 0, 0]; // timer is an interval that will be clear when the reset button is clicked.
+let interval;
+let timerRunning = false; // It won't start the interval again in the setTimer function when all text is deleted from the testarea
 
 //Generate random quotes
 function newQuote() {
@@ -26,9 +24,8 @@ function newQuote() {
     "I say dance, they say 'How high?'",
     "Jim told me you could buy gay-dar online."
   ];
-  const kmin = 0;
-  let max = kQuotes.length - 1;
-  let randomNumber = Math.floor(Math.random() * (max - kmin + 1)) + kmin;
+  let max = kQuotes.length;
+  let randomNumber = Math.floor(Math.random() * (max + 1));
   kOriginText.textContent = kQuotes[randomNumber];
 }
 
@@ -37,13 +34,13 @@ function checkInput() {
   let textEntered = kTestArea.value;
   let originText = kOriginText.innerHTML;
   let originTextMatch = originText.substring(0, textEntered.length);
- 
-  if (textEntered == originText) {
+
+  if (textEntered === originText) {
     clearInterval(interval);
     kTestWrapper.style.borderColor = "#429890";
     kTheTimer.classList.add("correct-typing");
   } else {
-    if (textEntered == originTextMatch) {
+    if (textEntered === originTextMatch) {
       kTestWrapper.style.borderColor = "#65CCf3";
     } else {
       kTestWrapper.style.borderColor = "#E95D0F";
@@ -54,26 +51,28 @@ function checkInput() {
 // Function for style purposes. Always have double digits showing in the timer if number is < 10.
 function leadingZero(number) {
   if (number < 10) {
-    number = "0" + number;
+    number = `0${number}`;
   }
   return number;
 }
-//Run the timer 
+//Run the timer
 function runTimer() {
-  let currentTime = timer[0] + ":" + timer[1]+ ":" + timer[2];
+  let currentTime = `${timer[0]}:${timer[1]}:${timer[2]}`;
   kTheTimer.innerHTML = currentTime;
   timer[3]++;
-  timer[0] = leadingZero(Math.floor( (timer[3] / 100 / 60) ));
-  timer[1] = leadingZero(Math.floor( timer[3] / 100 - timer[0] * 60 )); //Subtract that value so every time we hit 60 secs, value return to 0.
-  timer[2] = leadingZero(Math.floor(timer[3] - timer[1] * 100 - timer[0] * 6000 )); // Clear out every time we get to 100 to a second, and clear everytime the minute reaches hundred.
+  timer[0] = leadingZero(Math.floor(timer[3] / 100 / 60));
+  timer[1] = leadingZero(Math.floor(timer[3] / 100 - timer[0] * 60)); //Subtract that value so every time we hit 60 secs, value return to 0.
+  timer[2] = leadingZero(
+    Math.floor(timer[3] - timer[1] * 100 - timer[0] * 6000)
+  ); // Clear out every time we get to 100 to a second, and clear everytime the minute reaches hundred.
 }
-
 
 function setTimer() {
   //It checks how many elements there are in the text area. As the "keypress" has been set before, when the user press one key, the counter is still 0.
   let textEnteredLength = kTestArea.value.length;
-  if (textEnteredLength === 0 && !timerRunning) { // New interval won't be created unless user click star over or refresh the website. 
-    timerRunning = true; 
+  if (textEnteredLength === 0 && !timerRunning) {
+    // New interval won't be created unless user click star over or refresh the website.
+    timerRunning = true;
     interval = setInterval(runTimer, 10);
   }
 }
@@ -81,9 +80,9 @@ function setTimer() {
 //Reset all the website without refreshing
 function resetTest() {
   clearInterval(interval); // Clear the interval, the time will stop.
-  interval = null; // No set up a new interval with a new index number. Waste of resources otherwise. 
-  timerRunning = false; 
-  timer = [0,0,0,0];
+  interval = null; // No set up a new interval with a new index number. Waste of resources otherwise.
+  timerRunning = false;
+  timer = [0, 0, 0, 0];
   kTheTimer.innerHTML = "00:00:00";
   kTestArea.value = ""; // Clean the textarea
   kTheTimer.classList.remove("correct-typing"); // Remove the style of the timer if the typing test has been completed
